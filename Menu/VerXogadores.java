@@ -20,6 +20,7 @@ public class VerXogadores extends ComponenteMenu {
             System.out.println(current + ". " + x.alias);
             current++;
         }
+        System.out.println();
         System.out.println("Pulsa una tecla para volver al menú anterior");
         sc.nextLine();
         this.padre.ejecutar();

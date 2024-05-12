@@ -3,7 +3,7 @@ public class Tarefa {
     String nome;
     String habitacion;
 
-    Tarefa(String n, String h) {
+    public Tarefa(String n, String h) {
         this.nome = n;
         this.habitacion = h;
     }

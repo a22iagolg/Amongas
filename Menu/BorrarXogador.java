@@ -21,7 +21,9 @@ public class BorrarXogador extends ComponenteMenu {
             current++;
         }
         System.out.print("Introduce el número del jugador a borrar: ");
-        xogadores.remove(Integer.parseInt(sc.nextLine()) - 1);
+        int index = Integer.parseInt(sc.nextLine()) - 1;
+        if (index < xogadores.size())
+            xogadores.remove(index);
         this.padre.ejecutar();
     }
 }

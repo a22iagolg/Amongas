@@ -57,9 +57,9 @@ public class App {
         config.addMenu(tarefas);
         config.addMenu(xogadores);
         config.addMenu(new tResposta(sc));
-        tarefas.addMenu(new EngadirTarefa(sc));
-        tarefas.addMenu(new BorrarTarefa(sc));
-        tarefas.addMenu(new VerTarefas(sc));
+        tarefas.addMenu(new EngadirTarefa(sc, listaTarefas));
+        tarefas.addMenu(new BorrarTarefa(sc, listaTarefas));
+        tarefas.addMenu(new VerTarefas(sc, listaTarefas));
         xogadores.addMenu(new EngadirXogador(sc, xogadors, listaTarefas));
         xogadores.addMenu(new BorrarXogador(sc, xogadors));
         xogadores.addMenu(new VerXogadores(sc, xogadors));

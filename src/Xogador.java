@@ -1,4 +1,5 @@
 package src;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -14,6 +15,7 @@ public class Xogador {
     }
 
     void addTarefa(ArrayList<Tarefa> listaTarefas) {
+        tarefas.clear();
         ArrayList<Tarefa> listaCopy = new ArrayList<>(listaTarefas);
         Random random = new Random();
         for (int i = 0; i < 5; i++) {
