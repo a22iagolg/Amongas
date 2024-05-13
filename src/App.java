@@ -30,13 +30,13 @@ public class App {
         listaTarefas.add(new Tarefa("Cambiar cable Ethernet", "Sala de profesores"));
         listaTarefas.add(new Tarefa("Arranxar un computador", "Taller hardware"));
         listaTarefas.add(new Tarefa("Ordenar compoñentes e material", "Taller hardware"));
+
+        ArrayList<Xogador> xogadores = new ArrayList<>();
         Estudante e1 = new Estudante("@aaa", listaTarefas);
         Estudante e2 = new Estudante("@bbb", listaTarefas);
         Estudante e3 = new Estudante("@ccc", listaTarefas);
         Estudante e4 = new Estudante("@ddd", listaTarefas);
         Estudante e5 = new Estudante("@eee", listaTarefas);
-
-        ArrayList<Xogador> xogadores = new ArrayList<>();
         xogadores.add(e1);
         xogadores.add(e2);
         xogadores.add(e3);
@@ -48,6 +48,7 @@ public class App {
     }
 
     private static void crearMenu(Scanner sc, ArrayList<Xogador> xogadors, ArrayList<Tarefa> listaTarefas) {
+        long tMax = 8000;
         Menu MiMenu = new Menu("AmongSanCle", sc);
         Menu config = new Menu("Configuración", sc);
 
@@ -56,7 +57,7 @@ public class App {
         Menu xogadores = new Menu("Xogadores", sc);
         config.addMenu(tarefas);
         config.addMenu(xogadores);
-        config.addMenu(new tResposta(sc));
+        config.addMenu(new tResposta(sc, tMax));
         tarefas.addMenu(new EngadirTarefa(sc, listaTarefas));
         tarefas.addMenu(new BorrarTarefa(sc, listaTarefas));
         tarefas.addMenu(new VerTarefas(sc, listaTarefas));
@@ -64,7 +65,7 @@ public class App {
         xogadores.addMenu(new BorrarXogador(sc, xogadors));
         xogadores.addMenu(new VerXogadores(sc, xogadors));
 
-        Menu xogar = new Menu("Xogar", sc);
+        ComponenteMenu xogar = new Xogar("Xogar", sc, xogadors, listaTarefas, tMax);
         MiMenu.addMenu(xogar);
         MiMenu.ejecutar();
     }

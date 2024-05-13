@@ -5,16 +5,19 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
-public class Xogador {
+public class Xogador implements Comparable<Xogador> {
     public String alias;
-    Queue<Tarefa> tarefas = new LinkedList<>();
+    ArrayList<Tarefa> listaTarefas;
+    public boolean expulsado = false;
+    public boolean vivo = true;
+    public Queue<Tarefa> tarefas = new LinkedList<>();
 
     Xogador(String alias, ArrayList<Tarefa> list) {
         this.alias = alias;
-        this.addTarefa(list);
+        this.listaTarefas = list;
     }
 
-    void addTarefa(ArrayList<Tarefa> listaTarefas) {
+    public void addTarefa(ArrayList<Tarefa> listaTarefas) {
         tarefas.clear();
         ArrayList<Tarefa> listaCopy = new ArrayList<>(listaTarefas);
         Random random = new Random();
@@ -24,5 +27,10 @@ public class Xogador {
             this.tarefas.add(t);
             listaCopy.remove(t);
         }
+    }
+
+    @Override
+    public int compareTo(Xogador o) {
+        return this.alias.compareTo(o.alias);
     }
 }

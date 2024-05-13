@@ -1,7 +1,7 @@
 package src;
 public class Tarefa {
-    String nome;
-    String habitacion;
+    public String nome;
+    public String habitacion;
 
     public Tarefa(String n, String h) {
         this.nome = n;
