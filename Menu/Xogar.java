@@ -13,13 +13,11 @@ import src.*;
 public class Xogar extends ComponenteMenu {
     ArrayList<Xogador> xogadores;
     ArrayList<Tarefa> listaTarefas;
-    long tMax;
 
-    public Xogar(String nombre, Scanner sc, ArrayList<Xogador> xogadores, ArrayList<Tarefa> listaTarefas, long tMax) {
+    public Xogar(String nombre, Scanner sc, ArrayList<Xogador> xogadores, ArrayList<Tarefa> listaTarefas) {
         super(nombre, sc);
         this.xogadores = xogadores;
         this.listaTarefas = listaTarefas;
-        this.tMax = tMax;
     }
 
     @Override
@@ -72,7 +70,8 @@ public class Xogar extends ComponenteMenu {
                             if (key2.vivo == false) {
                                 System.out.println();
                                 System.out
-                                        .println(key2.alias + " foi asesinado mentres facía: " + posiciones.get(key2));
+                                        .println("\u001B[31m" + key2.alias + " foi asesinado mentres facía: "
+                                                + posiciones.get(key2) + "\u001B[0m");
                                 gameOver = comprobarFinal();
                             }
                         }
@@ -81,11 +80,13 @@ public class Xogar extends ComponenteMenu {
             }
 
             if (gameOver) {
-                System.out.println("EL ASESINO LOS HA MATADO A TODOS");
+                System.out.println();
+                System.out.println("\u001B[31mEL IMPOSTOR GANA\u001B[0m");
                 imprimirResultado();
                 break;
             }
 
+            long tMax = App.gettMax();
             System.out.println();
             System.out.println("¿Expulsar a alguien? Tiempo para escribir: " + tMax / 1000 + " segundos.");
             long start = System.currentTimeMillis();
@@ -104,16 +105,16 @@ public class Xogar extends ComponenteMenu {
                         System.out.println("HAS EXPULSAO A " + x.alias);
                         if (x.getClass().getSimpleName().equals("Impostor")) {
                             gameOver = true;
-                            System.out.println(x.alias + " ERA UN IMPOSTOR");
-                            System.out.println("HAS GANADO, ENHORABUENA");
+                            System.out.println("\u001B[92m" + x.alias + " ERA UN IMPOSTOR");
+                            System.out.println("HAS GANADO, ENHORABUENA\u001B[0m");
                             imprimirResultado();
                             break;
                         } else {
-                            System.out.println(x.alias + " NO ERA UN IMPOSTOR");
+                            System.out.println("\u001B[31m" + x.alias + " NO ERA UN IMPOSTOR" + "\u001B[0m");
                             gameOver = comprobarFinal();
                             if (gameOver == true) {
                                 System.out.println();
-                                System.out.println("EL IMPOSTOR GANA!");
+                                System.out.println("\u001B[31mEL IMPOSTOR GANA\u001B[0m");
                                 imprimirResultado();
                                 break;
                             }
@@ -126,7 +127,7 @@ public class Xogar extends ComponenteMenu {
             rolda++;
 
             if (!gameOver && rolda == 5) {
-                System.out.println("SE HAN ACABADO LAS TAREAS, LOS TRIPULANTES GANAN");
+                System.out.println("\u001B[92mSE HAN ACABADO LAS TAREAS, LOS TRIPULANTES GANAN!!!\u001B[0m");
                 gameOver = true;
                 imprimirResultado();
             }
@@ -152,20 +153,26 @@ public class Xogar extends ComponenteMenu {
         String alias = "";
         Collections.sort(xogadores, new ComparatorXog());
         System.out.println();
-        System.out.println("Comprobar impostores y estado de jugadores");
-        System.out.println();
+        System.out.println("Comprobar impostores y estado de jugadores: ");
         Iterator<Xogador> it = xogadores.iterator();
         while (it.hasNext()) {
             Xogador x = it.next();
-            String estado = "";
-            if (x.vivo == true && !x.expulsado)
-                estado = "vivo";
-            else if (x.vivo == false && !x.expulsado)
-                estado = "muerto por asesinato";
-            else
-                estado = "muerto por expulsión";
+            if (x.vivo == true && !x.expulsado) {
+                String clase = "";
+                if (x.getClass().getSimpleName().equals("Impostor")) {
+                    clase = "\u001B[31mImpostor\u001B[92m";
+                } else
+                    clase = "Estudante";
+                System.out.println("\u001B[92m" + x.alias + " era un " + clase
+                        + " y acabó el juego vivo!\u001B[0m");
+            } else if (x.vivo == false && !x.expulsado)
+                System.out.println("\u001B[31m" + x.alias + " era un " + x.getClass().getSimpleName()
+                        + " y acabó el juego muerto por asesinato\u001B[0m");
 
-            System.out.println(x.alias + " era un " + x.getClass().getSimpleName() + " y acabó el juego " + estado);
+            else
+                System.out.println("\u001B[31m" + x.alias + " era un " + x.getClass().getSimpleName()
+                        + " y acabó el juego muerto por expulsión\u001B[0m");
+
             x.restaurar();
             if (x.getClass().getSimpleName().equals("Impostor")) {
                 alias = x.alias;

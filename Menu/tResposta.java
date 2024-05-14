@@ -2,19 +2,19 @@ package Menu;
 
 import java.util.Scanner;
 
-public class tResposta extends ComponenteMenu {
-    long tMax;
+import src.App;
 
-    public tResposta(Scanner sc, long tMax) {
+public class tResposta extends ComponenteMenu {
+
+    public tResposta(Scanner sc) {
         super("Configurar tempo máximo de resposta", sc);
-        this.tMax = tMax;
     }
 
     void ejecutar() {
-        System.err.println("Actual valor de espera: " + tMax / 1000 + " segundos.");
+        System.err.println("Actual valor de espera: " + App.gettMax() / 1000 + " segundos.");
         System.out.print("Intoducir valor (en milisegundos) del tiempo máximo de espera: ");
-        tMax = Long.parseLong(sc.nextLine());
-        System.out.println("Nuevo tiempo máximo: " + (tMax / 1000) + " segundos.");
+        App.settMax(Long.parseLong(sc.nextLine()));
+        System.out.println("Nuevo tiempo máximo: " + (App.gettMax() / 1000) + " segundos.");
         this.padre.ejecutar();
     }
 }
