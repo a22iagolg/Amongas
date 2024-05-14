@@ -1,6 +1,8 @@
 package Menu;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 import src.Xogador;
@@ -14,6 +16,7 @@ public class VerXogadores extends ComponenteMenu {
     }
 
     void ejecutar() {
+        Collections.sort(xogadores);
         int current = 1;
         System.out.println("----------- Lista de xogadores -----------");
         for (Xogador x : xogadores) {

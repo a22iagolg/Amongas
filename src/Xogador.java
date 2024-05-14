@@ -33,4 +33,9 @@ public class Xogador implements Comparable<Xogador> {
     public int compareTo(Xogador o) {
         return this.alias.compareTo(o.alias);
     }
+
+    public void restaurar() {
+        this.expulsado = false;
+        this.vivo = true;
+    }
 }

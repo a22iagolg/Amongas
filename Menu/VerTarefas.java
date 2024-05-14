@@ -1,6 +1,7 @@
 package Menu;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 import src.Tarefa;
@@ -14,6 +15,7 @@ public class VerTarefas extends ComponenteMenu {
     }
 
     void ejecutar() {
+        Collections.sort(listaTarefas, new Tarefa());
         int current = 1;
         System.out.println("----------- Lista de tarefas -----------");
         for (Tarefa t : listaTarefas) {

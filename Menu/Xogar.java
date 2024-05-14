@@ -32,7 +32,7 @@ public class Xogar extends ComponenteMenu {
         Impostor impostor = new Impostor(xogadores.get(indexAsesino));
         xogadores.remove(indexAsesino);
         xogadores.add(impostor);
-        // System.out.println("IMPOSTOR ES: " + impostor.alias);
+        System.out.println("IMPOSTOR ES: " + impostor.alias);
         Collections.sort(xogadores);
 
         // Reiniciar tareas por si se añadió/eliminó alguna en el menú
@@ -82,17 +82,21 @@ public class Xogar extends ComponenteMenu {
 
             if (gameOver) {
                 System.out.println("EL ASESINO LOS HA MATADO A TODOS");
-                imprimirResultado(xogadores);
+                imprimirResultado();
                 break;
             }
+
             System.out.println();
             System.out.println("¿Expulsar a alguien? Tiempo para escribir: " + tMax / 1000 + " segundos.");
             long start = System.currentTimeMillis();
             String expulsado = sc.nextLine();
             long end = System.currentTimeMillis();
             long tReal = end - start;
+
+            Iterator<Xogador> it = xogadores.iterator();
             if (tReal < tMax) {
-                for (Xogador x : xogadores) {
+                while (it.hasNext() && !gameOver) {
+                    Xogador x = it.next();
                     if (x.alias.equals(expulsado)) {
                         x.expulsado = true;
                         x.vivo = false;
@@ -102,14 +106,16 @@ public class Xogar extends ComponenteMenu {
                             gameOver = true;
                             System.out.println(x.alias + " ERA UN IMPOSTOR");
                             System.out.println("HAS GANADO, ENHORABUENA");
-                            imprimirResultado(xogadores);
+                            imprimirResultado();
+                            break;
                         } else {
                             System.out.println(x.alias + " NO ERA UN IMPOSTOR");
                             gameOver = comprobarFinal();
                             if (gameOver == true) {
                                 System.out.println();
                                 System.out.println("EL IMPOSTOR GANA!");
-                                imprimirResultado(xogadores);
+                                imprimirResultado();
+                                break;
                             }
                         }
                     }
@@ -122,7 +128,7 @@ public class Xogar extends ComponenteMenu {
             if (!gameOver && rolda == 5) {
                 System.out.println("SE HAN ACABADO LAS TAREAS, LOS TRIPULANTES GANAN");
                 gameOver = true;
-                imprimirResultado(xogadores);
+                imprimirResultado();
             }
         }
         this.padre.ejecutar();
@@ -141,8 +147,9 @@ public class Xogar extends ComponenteMenu {
         return false;
     }
 
-    private void imprimirResultado(ArrayList<Xogador> xogadores) {
+    private void imprimirResultado() {
         // ordenar por roles/tipos de muerte
+        String alias = "";
         Collections.sort(xogadores, new ComparatorXog());
         System.out.println();
         System.out.println("Comprobar impostores y estado de jugadores");
@@ -159,23 +166,13 @@ public class Xogar extends ComponenteMenu {
                 estado = "muerto por expulsión";
 
             System.out.println(x.alias + " era un " + x.getClass().getSimpleName() + " y acabó el juego " + estado);
-        }
-        restaurar(xogadores);
-    }
-
-    private void restaurar(ArrayList<Xogador> xogadores) {
-        for (Xogador x : xogadores) {
+            x.restaurar();
             if (x.getClass().getSimpleName().equals("Impostor")) {
-                Estudante e = new Estudante(x.alias, listaTarefas);
-                xogadores.remove(x);
-                xogadores.add(e);
-            }
-            if (x.expulsado == true || x.vivo == false) {
-                System.out.println("Restaurando a " + x.alias);
-                x.expulsado = false;
-                x.vivo = true;
+                alias = x.alias;
+                it.remove();
             }
         }
+        xogadores.add(new Estudante(alias, listaTarefas));
     }
 
 }

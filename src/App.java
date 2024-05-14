@@ -20,16 +20,16 @@ public class App {
     public static void main(String[] args) {
         ArrayList<Tarefa> listaTarefas = new ArrayList<>();
         listaTarefas.add(new Tarefa("Abrir ventás para ventilar", "Aula 12"));
+        listaTarefas.add(new Tarefa("Ordenar compoñentes e material", "Taller hardware"));
         listaTarefas.add(new Tarefa("Reparar o proxector", "Aula da bodega"));
-        listaTarefas.add(new Tarefa("Arranxar fotocopiadora", "Conserxería"));
         listaTarefas.add(new Tarefa("Coller xices", "Conserxería"));
         listaTarefas.add(new Tarefa("Desbloquear acceso a Internet", "Dpto. de Informática"));
         listaTarefas.add(new Tarefa("Arranxar goteira", "Recibidor"));
         listaTarefas.add(new Tarefa("Poñer en marcha o ordenador", "Recibidor"));
         listaTarefas.add(new Tarefa("Actualizar software repetidor WiFi", "Sala de profesores"));
+        listaTarefas.add(new Tarefa("Arranxar fotocopiadora", "Conserxería"));
         listaTarefas.add(new Tarefa("Cambiar cable Ethernet", "Sala de profesores"));
         listaTarefas.add(new Tarefa("Arranxar un computador", "Taller hardware"));
-        listaTarefas.add(new Tarefa("Ordenar compoñentes e material", "Taller hardware"));
 
         ArrayList<Xogador> xogadores = new ArrayList<>();
         Estudante e1 = new Estudante("@aaa", listaTarefas);

@@ -1,7 +1,13 @@
 package src;
-public class Tarefa {
+
+import java.util.Comparator;
+
+public class Tarefa implements Comparator<Tarefa> {
     public String nome;
     public String habitacion;
+
+    public Tarefa() {
+    }
 
     public Tarefa(String n, String h) {
         this.nome = n;
@@ -42,5 +48,16 @@ public class Tarefa {
         } else if (!habitacion.equals(other.habitacion))
             return false;
         return true;
+    }
+
+    @Override
+    public int compare(Tarefa t1, Tarefa t2) {
+        // Primero comparar por habitación
+        int comparacionHabitacion = t1.habitacion.compareTo(t2.habitacion);
+        if (comparacionHabitacion != 0) {
+            return comparacionHabitacion;
+        }
+        // Si las habitaciones son iguales, comparar por nombre
+        return t1.nome.compareTo(t2.nome);
     }
 }
