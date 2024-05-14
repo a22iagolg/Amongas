@@ -32,7 +32,7 @@ public class Xogar extends ComponenteMenu {
         Impostor impostor = new Impostor(xogadores.get(indexAsesino));
         xogadores.remove(indexAsesino);
         xogadores.add(impostor);
-        System.out.println("IMPOSTOR ES: " + impostor.alias);
+        // System.out.println("IMPOSTOR ES: " + impostor.alias);
         Collections.sort(xogadores);
 
         // Reiniciar tareas por si se añadió/eliminó alguna en el menú
